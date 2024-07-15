@@ -11,7 +11,9 @@ cart.forEach((cartItem) => {
       matchingItem = product;
     }
   });
-  cartSummary += ` <div class="cart-item-container">
+  cartSummary += ` <div class="cart-item-container js-cart-item-container-${
+    matchingItem.id
+  }">
             <div class="delivery-date">Delivery date: Tuesday, June 21</div>
 
             <div class="cart-item-details-grid">
@@ -96,15 +98,9 @@ document.querySelectorAll(".js-delete-link").forEach((button) => {
 
     removeFromCart(deleteId);
 
-    // let newCart = [];
-    // cart.forEach((cartItem) => {
-    //   // console.log(deleteId, cartItem.productId);
-    //   if (cartItem.productId !== deleteId) {
-    //     console.log("hh");
-    //     newCart.push(cartItem);
-    //   }
-    // });
-    // cart = newCart;
-    // console.log(cart);
+    const container = document.querySelector(
+      `.js-cart-item-container-${deleteId}`
+    );
+    container.remove();
   });
 });
