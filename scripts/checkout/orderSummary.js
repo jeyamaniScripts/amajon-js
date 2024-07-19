@@ -1,6 +1,10 @@
 import { cart, removeFromCart, updateDeliveryOption } from "../../data/cart.js";
-import { deliveryOptions } from "../../data/deliveryOptions.js";
-import { products } from "../../data/products.js";
+import {
+  deliveryOptions,
+  getDeliveryOption,
+} from "../../data/deliveryOptions.js";
+import { getProduct, products } from "../../data/products.js";
+import { renderPaymentSummary } from "./paymentSummary.js";
 import { formateCurrency } from "/utils/money.js";
 
 // console.log(dayjs());
@@ -11,20 +15,17 @@ export function renderOrderSummary() {
   let cartSummary = "";
   cart.forEach((cartItem) => {
     const productId = cartItem.productId;
-    let matchingItem;
-    products.forEach((product) => {
-      if (productId === product.id) {
-        matchingItem = product;
-      }
-    });
+    const matchingItem = getProduct(productId);
 
     const deliveryOptionId = cartItem.deliveryOptionId;
-    let deliveryOption;
-    deliveryOptions.forEach((delivery) => {
-      if (delivery.id === deliveryOptionId) {
-        deliveryOption = delivery;
-      }
-    });
+    // let deliveryOption;
+    // deliveryOptions.forEach((delivery) => {
+    //   if (delivery.id === deliveryOptionId) {
+    //     deliveryOption = delivery;
+    //   }
+    // });
+    // console.log(deliveryOption);
+    const deliveryOption = getDeliveryOption(deliveryOptionId);
     // console.log(deliveryOption);
 
     const currentDate = new Date();
@@ -129,16 +130,19 @@ export function renderOrderSummary() {
         `.js-cart-item-container-${deleteId}`
       );
       container.remove();
+      renderPaymentSummary();
     });
   });
 
   document.querySelectorAll(".js-delivery-option").forEach((element) => {
     element.addEventListener("click", () => {
+      // console.log('vloo');
       const deliveryOptionId = element.dataset.deliveryOptionId;
       const productId = element.dataset.productId;
-      // console.log(productId, deliveryOptionId);
+      //  console.log(productId, deliveryOptionId);
       updateDeliveryOption(productId, deliveryOptionId);
       renderOrderSummary();
+      renderPaymentSummary();
     });
   });
 }

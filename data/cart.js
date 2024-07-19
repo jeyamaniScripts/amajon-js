@@ -1,3 +1,5 @@
+import { getProduct } from "./products.js";
+
 export let cart = JSON.parse(localStorage.getItem("cart")) || [
   {
     productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -60,15 +62,17 @@ export function removeFromCart(productId) {
 }
 
 export function updateDeliveryOption(productId, deliveryOption) {
-  // console.log(deliveryOption);
+  // console.log(productId, deliveryOption);
   let matchingItem;
+  // console.log(matchingItem);
+  // matchingItem.deliveryOptionId = productId;
+  // console.log(matchingItem);
+  // matchingItem = cart;
   cart.forEach((cartItem) => {
-    // console.log(cartItem.productId);
-    if (cartItem.productId === deliveryOption) {
+    if (deliveryOption === cartItem.productId) {
       matchingItem = cartItem;
     }
   });
   matchingItem.deliveryOptionId = productId;
-  // console.log(matchingItem);
   saveStorage();
 }
