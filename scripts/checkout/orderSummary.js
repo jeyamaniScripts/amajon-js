@@ -10,7 +10,7 @@ import { formateCurrency } from "/utils/money.js";
 // console.log(dayjs());
 // console.log(new Date());
 // const date = new Date().toDateString();
-// console.log(date);
+console.log(products);
 export function renderOrderSummary() {
   let cartSummary = "";
   cart.forEach((cartItem) => {
@@ -49,9 +49,8 @@ export function renderOrderSummary() {
                   
                 ${matchingItem.name}
                 </div>
-                <div class="product-price">$${formateCurrency(
-                  matchingItem.priceCents
-                )}</div>
+                <div class="product-price">${
+                  matchingItem.getPrice()}</div>
                 <div class="product-quantity">
                   <span> Quantity: <span class="quantity-label">2</span> </span>
                   <span class="update-quantity-link link-primary">
