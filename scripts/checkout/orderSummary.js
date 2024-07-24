@@ -10,7 +10,7 @@ import { formateCurrency } from "/utils/money.js";
 // console.log(dayjs());
 // console.log(new Date());
 // const date = new Date().toDateString();
-console.log(products);
+// console.log(products);
 export function renderOrderSummary() {
   let cartSummary = "";
   cart.forEach((cartItem) => {
